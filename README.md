@@ -8,6 +8,5 @@ I followed [this tutorial](https://www.youtube.com/watch?v=VhdzP_-UwJM) to get s
 
 Further plans
 
-* Error handling (*an absolute must*)
 * Style
 * Imperial and metric support

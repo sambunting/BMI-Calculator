@@ -20,13 +20,26 @@ namespace BMI_Calculator
         private void button_show_Click(object sender, EventArgs e)
         {
             string name = textName.Text;
-            int height = Convert.ToInt32(textHeight.Text);
-            int weightSt = Convert.ToInt32(textWeightSt.Text);
-            double weightLb = Convert.ToDouble(textWeightLb.Text);
+            string height = textHeight.Text;
+            string weightSt = textWeightSt.Text;
+            string weightLb = textWeightLb.Text;
 
-            BMI Patient_1 = new BMI(name, height, weightSt, weightLb);
+            if (String.IsNullOrEmpty(name))
+                MessageBox.Show("The name field is required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            else if (String.IsNullOrEmpty(height.ToString()))
+                MessageBox.Show("The height field is required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            else if (String.IsNullOrEmpty(weightSt.ToString()) || String.IsNullOrEmpty(weightLb.ToString()))
+                MessageBox.Show("Both weight fields are required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            else if (Convert.ToInt32(weightLb) >= 14)
+                MessageBox.Show("Invalid pounds value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            else
+            {
+                BMI Patient_1 = new BMI(name, Convert.ToInt32(height), Convert.ToInt32(weightSt), Convert.ToDouble(weightLb));
 
-            MessageBox.Show("Name: " + Patient_1.getName() + Environment.NewLine + "Height: " + Patient_1.getHeight() + Environment.NewLine + "Weight: " + Patient_1.getWeight() + Environment.NewLine + "BMI :" + Patient_1.calculateBMIValue() + Environment.NewLine + "You are " + Patient_1.calculateBMI());
+                string resultString = "Name: " + Patient_1.getName() + Environment.NewLine + "Height: " + Patient_1.getHeight() + Environment.NewLine + "Weight: " + Patient_1.getWeight() + Environment.NewLine + "BMI :" + Patient_1.calculateBMIValue() + Environment.NewLine + "You are " + Patient_1.calculateBMI();
+
+                MessageBox.Show(resultString, "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            }
        }
     }
 }
